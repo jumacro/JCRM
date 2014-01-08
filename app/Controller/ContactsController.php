@@ -1,5 +1,6 @@
 <?php
 class ContactsController extends AppController {
+	public $components = array('RequestHandler');
 	public $uses = array('Contact','ContactStatus','Deal','User','Event','EventType');
 	public $paginate = array(
         'limit' => 10,
