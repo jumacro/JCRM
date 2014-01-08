@@ -30,6 +30,7 @@ class Event extends FullCalendarAppModel {
 	
 	public $filterArgs = array(
 			'search_title' => array('type'=>'like','field'=>'Event.title'),
+			'search_user' => array('type'=>'int','field'=>'Event.user_id'),
 			'search_date_from' => array('type'=>'expression','method'=>'searchDate','field'=>'Event.start BETWEEN ? AND ?'),
 			
 			'search_all' => array('type'=>'query','method'=>'searchDefault')
@@ -45,6 +46,14 @@ class Event extends FullCalendarAppModel {
 				));
 		return $cond;
 	}
+
+	public function searchUser($data = array()) {
+		$filter = $data['search_user'];
+		$cond = array(
+					$this->alias . '.user_id ' => $filter
+				);
+		return $cond;
+	}
 	
 	public function searchDate($data = array()) {
 		$date_from = $data['search_date_from'];
@@ -56,6 +65,8 @@ class Event extends FullCalendarAppModel {
 		$cond = array($date_from,$date_to);
 		return $cond;
 	}
+
+	
 	
 	var $belongsTo = array(
 		'EventType' => array(
