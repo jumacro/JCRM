@@ -13,16 +13,17 @@
 		echo $this->Html->css('custom'); //costom css
 		echo $this->Html->css('styleless'); //dynamic css
 		echo $this->Html->script('jquery');
+		echo $this->Html->script('jquery-ui-1.9.2.custom.min');
 		echo $this->Html->css('start/jquery-ui');
 		//echo $this->Html->css('redmond/jquery-ui');
 		//echo $this->Html->css('cupertino/jquery-ui');
-		echo $this->Html->css('jquery-ui-timepicker-addon');
+		//echo $this->Html->css('jquery-ui-timepicker-addon');
 		
 		
 		echo $this->Html->script('bootstrap.min');
 		
 		echo $this->Html->script('jquery.validate.min');
-		echo $this->Html->script('jquery-ui-1.9.2.custom.min');
+		
 		echo $this->Html->script('jquery-ui-timepicker-addon');
 		
 		echo $this->Html->css('jquery.ui.autocomplete');
