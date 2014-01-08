@@ -1,0 +1,19 @@
+[29-Aug-2013 11:32:09] PHP Parse error:  syntax error, unexpected T_STRING in /home/wvsoftek/public_html/storedge.in/micra/app/Config/database.php on line 36
+[19-Sep-2013 12:29:51] PHP Fatal error:  Class 'MicraController' not found in /home/wvsoftek/public_html/wvs.in/pg/micra/app/Controller/AppController.php on line 34
+[28-Nov-2013 09:15:33] PHP Parse error:  syntax error, unexpected T_STRING, expecting ')' in /home/wvsoftek/public_html/wvs.in/pg/micra/app/View/Themed/Default/Contacts/add.ctp on line 21
+[28-Nov-2013 09:15:48] PHP Parse error:  syntax error, unexpected T_STRING, expecting ')' in /home/wvsoftek/public_html/wvs.in/pg/micra/app/View/Themed/Default/Contacts/add.ctp on line 21
+[28-Nov-2013 09:16:12] PHP Parse error:  syntax error, unexpected T_STRING, expecting ')' in /home/wvsoftek/public_html/wvs.in/pg/micra/app/View/Themed/Default/Contacts/add.ctp on line 21
+[28-Nov-2013 09:16:25] PHP Parse error:  syntax error, unexpected T_STRING, expecting ')' in /home/wvsoftek/public_html/wvs.in/pg/micra/app/View/Themed/Default/Contacts/add.ctp on line 21
+[28-Nov-2013 09:16:57] PHP Parse error:  syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, expecting ')' in /home/wvsoftek/public_html/wvs.in/pg/micra/app/View/Themed/Default/Contacts/add.ctp on line 21
+[12-Dec-2013 18:26:09 UTC] PHP Parse error:  syntax error, unexpected ')', expecting function (T_FUNCTION) in /home/wvsin/public_html/micra/app/Model/Deal.php on line 22
+[12-Dec-2013 18:26:57 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/DealsController.php on line 57
+[12-Dec-2013 18:27:53 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/DealsController.php on line 57
+[12-Dec-2013 18:28:41 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/DealsController.php on line 57
+[12-Dec-2013 18:35:52 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/DealsController.php on line 57
+[12-Dec-2013 18:44:01 UTC] PHP Parse error:  syntax error, unexpected ''UserName'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/wvsin/public_html/micra/app/Model/Deal.php on line 12
+[15-Dec-2013 05:08:06 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/ContactsController.php on line 90
+[15-Dec-2013 05:08:16 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/ContactsController.php on line 90
+[15-Dec-2013 05:09:26 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/ContactsController.php on line 90
+[15-Dec-2013 05:10:25 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/ContactsController.php on line 90
+[15-Dec-2013 05:18:08 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/ContactsController.php on line 90
+[15-Dec-2013 05:18:17 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/wvsin/public_html/micra/app/Controller/ContactsController.php on line 90
