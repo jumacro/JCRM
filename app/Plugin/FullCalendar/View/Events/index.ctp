@@ -38,6 +38,9 @@
 			<?php if(!empty($search_args['search_date_to'])): ?>
 			<strong>To: </strong><span><?php echo $search_args['search_date_to']; ?></span>
 			<?php endif; ?>
+			<?php if(!empty($search_args['search_user'])): ?>
+			<strong>User: </strong><span><?php echo $user['User']['first_name']; ?></span>
+			<?php endif; ?>
 		</div>
 		<?php endif; ?>
 		<div class="filter-box" style="display:none">
@@ -48,6 +51,7 @@
 				<?php echo $this->Form->input('search_title',array('div'=>false,'class'=>'span2','label'=>'Title ','placeholder'=>'Title')); ?>
 				<?php echo $this->Form->input('search_date_from',array('div'=>false,'class'=>'span2 date','label'=>'Start From ')); ?>
 				<?php echo $this->Form->input('search_date_to',array('div'=>false,'class'=>'span2 date','label'=>'To ')); ?>
+				<?php echo $this->Form->input('search_user',array('div'=>false,'class'=>'span2','label'=>'User ','empty'=>true, 'options' => $users)); ?>
 				<?php echo $this->Form->submit('Filter',array('div'=>false,'class'=>'btn btn-info')); ?>
 			</fieldset>
 			<?php echo $this->Form->end(); ?>
