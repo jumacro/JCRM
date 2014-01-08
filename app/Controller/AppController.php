@@ -46,8 +46,7 @@ class AppController extends Controller {
 							
 							)
 			),
-			'Search.Prg',
-			'RequestHandler'
+			'Search.Prg'
 	);
 	
 	public $helpers = array(
