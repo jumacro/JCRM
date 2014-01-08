@@ -20,10 +20,19 @@ class EventsController extends FullCalendarAppController {
 
     function index() {
         $searched = false;
+        $user = array();
         if ($this->passedArgs) {
         	$args = $this->passedArgs;
         	if(isset($args['search_title'])){
         		$searched = true;
+        	}
+        	if(isset($args['search_user'])){
+        		$user = $this->Event->User->find('first', array(
+        				'conditions' => array(
+        						'User.id' => $args['search_user']
+        					),
+        				'recursive' => -1
+        			));
         	}
         }
         $this->set('searched',$searched);
@@ -34,7 +43,11 @@ class EventsController extends FullCalendarAppController {
 			'conditions' => $this->Event->parseCriteria($this->passedArgs),
 			'limit' => 15
 		);
+		$users = $this->Event->User->find('list');
 		$this->set('events', $this->paginate());
+		$this->set(compact('users'));
+		$this->set(compact('user'));
+		//$log = $this->Event->getDataSource()->showLog( false ); debug( $log );
 	}
 
 	function excelreport() {
@@ -129,43 +142,51 @@ class EventsController extends FullCalendarAppController {
 		$vars = $this->params['url'];
 		$conditions = array('conditions' => array('UNIX_TIMESTAMP(start) >=' => $vars['start'], 'UNIX_TIMESTAMP(start) <=' => $vars['end']));
 		$events = $this->Event->find('all', $conditions);
-		foreach($events as $event) {
-			if($event['Event']['all_day'] == 1) {
-				$allday = true;
-				$end = $event['Event']['start'];
-			} else {
-				$allday = false;
-				$end = $event['Event']['end'];
-			}
-			
-			$event_contacts = "";
-			$event_users = "";
-			
-			if(!empty($event['Contact'])){
-				foreach($event['Contact'] as $contact){
-					$event_contacts .= $contact['full_name'] . ', ';
+		//$log = $this->Event->getDataSource()->showLog( false ); debug( $log ); exit;
+		$data = array();
+		if($events){
+			foreach($events as $event) {
+				if($event['Event']['all_day'] == 1) {
+					$allday = true;
+					$end = $event['Event']['start'];
+				} else {
+					$allday = false;
+					$end = $event['Event']['end'];
 				}
-			}
-			
-			if(!empty($event['User'])){
-				foreach($event['User'] as $user){
-					$event_users .= $user['full_name'] . ', ';
+				
+				$event_contacts = "";
+				$event_users = "";
+				
+				if(!empty($event['Contact'])){
+					foreach($event['Contact'] as $contact){
+						$event_contacts .= $contact['full_name'] . ', ';
+					}
 				}
+				
+				if(!empty($event['User'])){
+					foreach($event['User'] as $user){
+						$event_users .= $user['full_name'] . ', ';
+					}
+				}
+				
+				$data[] = array(
+						'id' => $event['Event']['id'],
+						'title'=>$event['Event']['title'],
+						'start'=>$event['Event']['start'],
+						'end' => $end,
+						'allDay' => $allday,
+						'url' => Router::url('/',true) . '/full_calendar/events/view/'.$event['Event']['id'],
+						'details' => $event['Event']['details'],
+						'className' => $event['EventType']['color'],
+						'toolTip' => $event['Event']['details'] . ', Contacts: ' . $event_contacts . ',Users:' . $event_users
+				);
 			}
-			
-			$data[] = array(
-					'id' => $event['Event']['id'],
-					'title'=>$event['Event']['title'],
-					'start'=>$event['Event']['start'],
-					'end' => $end,
-					'allDay' => $allday,
-					'url' => Router::url('/',true) . '/full_calendar/events/view/'.$event['Event']['id'],
-					'details' => $event['Event']['details'],
-					'className' => $event['EventType']['color'],
-					'toolTip' => $event['Event']['details'] . '<br /><strong>Contacts: </strong>' . $event_contacts . '<br /><strong>Users: </strong>' . $event_users
-			);
+
 		}
-		$this->set("json", json_encode($data));
+		
+		$this->set(compact('data'));
+		//$this->set(compact('data'));
+        //$this->set('_serialize', array('data'));
 	}
 
         // The update action is called from "webroot/js/ready.js" to update date/time when an event is dragged or resized
