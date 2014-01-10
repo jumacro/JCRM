@@ -30,7 +30,7 @@ class Event extends FullCalendarAppModel {
 	
 	public $filterArgs = array(
 			'search_title' => array('type'=>'like','field'=>'Event.title'),
-			'search_user' => array('type'=>'int','field'=>'Event.user_id'),
+			//'search_user' => array('type'=>'int','field'=>'User.user_id'),
 			'search_date_from' => array('type'=>'expression','method'=>'searchDate','field'=>'Event.start BETWEEN ? AND ?'),
 			
 			'search_all' => array('type'=>'query','method'=>'searchDefault')
