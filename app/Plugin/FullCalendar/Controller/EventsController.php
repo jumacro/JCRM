@@ -21,6 +21,7 @@ class EventsController extends FullCalendarAppController {
     function index() {
         $searched = false;
         $user = array();
+        $extra_conditions = array();
         if ($this->passedArgs) {
         	$args = $this->passedArgs;
         	if(isset($args['search_title'])){
@@ -33,14 +34,36 @@ class EventsController extends FullCalendarAppController {
         					),
         				'recursive' => -1
         			));
+        		$event_ids = $this->Event->EventsUser->find(
+				    'all', 
+				    array(
+				        'conditions' => array('EventsUser.user_id' => $args['search_user'], ),
+				        'recursive' => -1,
+				        'fields' => array('EventsUser.event_id'),
+				    )
+				);
+				$id_array = array();
+				if($event_ids){
+					foreach($event_ids as $val){
+						$id_array[] = $val['EventsUser']['event_id'];
+					}
+				}
+				//$log = $this->Event->EventsUser->getDataSource()->showLog( false ); debug( $log ); exit;
+				$extra_conditions = array(
+						'Event.id' => $id_array
+					);
+				
         	}
         }
         $this->set('searched',$searched);
         $this->Session->write('passedArgs', $this->passedArgs);
 		$this->Prg->commonProcess();
 		$this->Event->recursive = 1;
+		$conditions = $this->Event->parseCriteria($this->passedArgs);
+		$final_conditions = array_merge($conditions, $extra_conditions);
+
 		$this->paginate = array(
-			'conditions' => $this->Event->parseCriteria($this->passedArgs),
+			'conditions' => $final_conditions,
 			'limit' => 15
 		);
 		$users = $this->Event->User->find('list');
@@ -52,12 +75,40 @@ class EventsController extends FullCalendarAppController {
 
 	function excelreport() {
 		$passedArgs = $this->Session->read('passedArgs');
+		$extra_conditions = array();
+        if ($passedArgs) {
+        	$args = $passedArgs;
+        	
+        	if(isset($args['search_user'])){
+        		
+        		$event_ids = $this->Event->EventsUser->find(
+				    'all', 
+				    array(
+				        'conditions' => array('EventsUser.user_id' => $args['search_user'], ),
+				        'recursive' => -1,
+				        'fields' => array('EventsUser.event_id'),
+				    )
+				);
+				$id_array = array();
+				if($event_ids){
+					foreach($event_ids as $val){
+						$id_array[] = $val['EventsUser']['event_id'];
+					}
+				}
+				//$log = $this->Event->EventsUser->getDataSource()->showLog( false ); debug( $log ); exit;
+				$extra_conditions = array(
+						'Event.id' => $id_array
+					);
+				
+        	}
+        }
 		$this->layout = 'excel';
 		$this->Event->recursive = 1;
-		$conditions = array(
-			'conditions' => $this->Event->parseCriteria($passedArgs)
-		);
-		$data = $this->Event->find('all', $conditions);		
+		$conditions = $this->Event->parseCriteria($this->passedArgs);
+		$final_conditions = array_merge($conditions, $extra_conditions);
+		$data = $this->Event->find('all', array(
+				'conditions' => $final_conditions
+			));		
 		$this->set('rows', $data);
 	}
 
