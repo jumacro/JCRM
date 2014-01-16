@@ -75,6 +75,8 @@ class EventsController extends FullCalendarAppController {
 
 	function excelreport() {
 		$passedArgs = $this->Session->read('passedArgs');
+        $this->passedArgs = $passedArgs;
+        
 		$extra_conditions = array();
         if ($passedArgs) {
         	$args = $passedArgs;
