@@ -34,7 +34,7 @@
 				)
 			)
 		);
-		echo $this->Form->input('Contact',array('type'=>'select','multiple'=>true));
+		echo $this->Form->input('Contact',array('type'=>'select'));
 		echo $this->Form->input('User',array('type'=>'select','multiple'=>true));
 	?>
 	<div class="form-actions">
