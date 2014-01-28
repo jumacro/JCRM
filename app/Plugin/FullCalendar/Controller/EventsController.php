@@ -133,8 +133,24 @@ class EventsController extends FullCalendarAppController {
 				$this->Session->setFlash(__('The event could not be saved. Please, try again.', true),'alert',array('class'=>'alert-error'));
 			}
 		}
+        
+        $contacts = $this->Event->Contact->find('list',array(
+				'fields' => array(
+					'Contact.id', 
+					'Contact.company_name'
+					),
+				'conditions'=>array(
+					'Contact.user_id'=>$this->Auth->user('id'),
+					'NOT' => array(
+							'Contact.name' => null
+						)
+
+					)
+				));
+		$this->set(compact('contacts'));
+        
 		$this->set('eventTypes', $this->Event->EventType->find('list'));
-		$this->set('contacts',$this->Event->Contact->find('list'));
+		//$this->set('contacts',$this->Event->Contact->find('list'));
 		$this->set('users',$this->Event->User->find('list'));
 	}
 
